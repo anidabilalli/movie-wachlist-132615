@@ -29,6 +29,23 @@ function MoviesPage() {
         }
     }
 
+    function toggleWatched(movie) {
+        setMovies((prevState) => {
+            return prevState.map((prevMovie) => {
+                if (prevMovie.id === movie.id) {
+                    return {...prevMovie, watched: !prevMovie.watched};
+                }
+                else return prevMovie;
+            });
+        });
+    }
+
+    function deleteMovie(movie) {
+        setMovies((prevState) => {
+            return prevState.filter((prevMovie) => prevMovie.id !== movie.id);
+        });
+    }
+
   return (
     <div className="p-8">
       <h1 className="text-3xl font-bold text-gray-900 mb-6">Movies</h1>
@@ -84,6 +101,20 @@ function MoviesPage() {
                 <div>Director:{movie.director}</div>
                 <div>Genre:{movie.genre}</div>
                 <div>Status:{movie.watched ? 'Watched': 'Not Watched'}</div>
+
+                    <button
+                        onClick={() => toggleWatched(movie)}
+                        className="rounded bg-white font-bold text-pink-500 p-2 border-pink-700"
+                        >
+                        Toggle Watched
+                    </button>
+
+                    <button
+                        onClick={() => deleteMovie(movie)}
+                        className="rounded bg-white font-bold text-pink-500 p-2 border-pink-700"
+                        >
+                        Delete
+                    </button>
            </div>
             );
         })}
